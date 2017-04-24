@@ -1,10 +1,13 @@
-package Model.Category;
+package expensemanager.Model.Category;
+
+import expensemanager.Model.Payee.Payee;
 
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 @Entity
@@ -20,6 +23,9 @@ public class Category
     @NotNull
     private Boolean is_category_active;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_payee", referencedColumnName = "payee_id")
+    private Payee payee ;
     public int getCategory_id() {
         return category_id;
     }
@@ -44,9 +50,19 @@ public class Category
         this.is_category_active = is_category_active;
     }
 
-    public Category(String category_name, Boolean is_category_active) {
+    public Payee getPayee() {
+        return payee;
+    }
+
+    public void setPayee(Payee payee) {
+        this.payee = payee;
+    }
+
+    public Category(String category_name, Boolean is_category_active, Payee payee) {
         this.category_name = category_name;
         this.is_category_active = is_category_active;
+        this.payee = payee;
     }
+
     public Category(){}
 }

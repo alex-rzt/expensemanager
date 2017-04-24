@@ -1,4 +1,6 @@
-package Model.User;
+package expensemanager.Model.User;
+
+import expensemanager.Model.Account.Account;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,10 @@ public class User
 
     @NotNull
     private Boolean is_user_active;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_account",referencedColumnName = "account_id")
+    private Account account;
 
 
     public int getUser_Id() {
@@ -74,12 +80,23 @@ public class User
         this.is_user_active = is_user_active;
     }
 
-    public User(String user_Name, String email, String password, long balance, Boolean is_user_active) {
+    public Account getAccount()
+    {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public User(String user_Name, String email, String password, long balance, Boolean is_user_active, Account account) {
         this.user_Name = user_Name;
         this.email = email;
         this.password = password;
         this.balance = balance;
         this.is_user_active = is_user_active;
+        this.account = account;
     }
+
     public User(){}
 }

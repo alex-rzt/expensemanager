@@ -1,4 +1,4 @@
-package Model.Payee;
+package expensemanager.Model.Payee;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
