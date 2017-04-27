@@ -23,15 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
         {
             return sessionFactory.getCurrentSession();
         }
-        private void save(Transaction transaction)
+        public void save(Transaction transaction)
         {
             getSession().save(transaction);
         }
-        private void delete(Transaction transaction)
+        public void delete(Transaction transaction)
         {
             getSession().delete(transaction);
         }
-        private void update(Transaction transaction)
+        public void update(Transaction transaction)
         {
             getSession().update(transaction);
         }

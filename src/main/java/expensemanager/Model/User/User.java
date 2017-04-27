@@ -4,6 +4,8 @@ import expensemanager.Model.Account.Account;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class User
@@ -12,29 +14,46 @@ public class User
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_Id;
 
-    @NotNull
+
     private String user_Name;
 
-    @NotNull
+
     private String email;
 
-    @NotNull
+
     private String password;
 
-    @NotNull
+
     private long balance;
 
-    @NotNull
-    private Boolean is_user_active;
+    /*@NotNull
+    private Boolean is_user_active;*/
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_account",referencedColumnName = "account_id")
-    private Account account;
+    /*@ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    private Collection<Account> account=new ArrayList<Account>();
 
+    public Collection<Account> getAccount() {
+        return account;
+    }
+
+    public void setAccount(Collection<Account> account) {
+        this.account = account;
+    }*/
+     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Collection<Account> account=new ArrayList<Account>();
+
+    public Collection<Account> getAccount() {
+        return account;
+    }
+
+    public void setAccount(Collection<Account> account) {
+        this.account = account;
+    }
 
     public int getUser_Id() {
         return user_Id;
     }
+
 
     public void setUser_Id(int user_Id) {
         this.user_Id = user_Id;
@@ -72,30 +91,21 @@ public class User
         this.balance = balance;
     }
 
-    public Boolean getIs_user_active() {
+   /* public Boolean getIs_user_active() {
         return is_user_active;
     }
 
     public void setIs_user_active(Boolean is_user_active) {
         this.is_user_active = is_user_active;
-    }
+    }*/
 
-    public Account getAccount()
-    {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public User(String user_Name, String email, String password, long balance, Boolean is_user_active, Account account) {
+    public User(String user_Name, String email, String password, long balance/*, Boolean is_user_active*//*, Account account*/) {
         this.user_Name = user_Name;
         this.email = email;
         this.password = password;
         this.balance = balance;
-        this.is_user_active = is_user_active;
-        this.account = account;
+        /*this.is_user_active = is_user_active;*/
+        /*this.account = account;*/
     }
 
     public User(){}

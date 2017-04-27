@@ -1,5 +1,6 @@
 package expensemanager.Model.Category;
 
+import expensemanager.Model.Account.Account;
 import expensemanager.Model.Payee.Payee;
 
 import javax.persistence.*;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity
@@ -20,12 +23,13 @@ public class Category
     @NotNull
     private String category_name;
 
-    @NotNull
-    private Boolean is_category_active;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /*@NotNull
+    private Boolean is_category_active;*/
+
+   /* @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_payee", referencedColumnName = "payee_id")
-    private Payee payee ;
+    private Payee payee ;*/
     public int getCategory_id() {
         return category_id;
     }
@@ -42,26 +46,39 @@ public class Category
         this.category_name = category_name;
     }
 
-    public Boolean getIs_category_active() {
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private Collection<Payee> payees=new ArrayList<Payee>();
+
+    public Collection<Payee> getPayees() {
+        return payees;
+    }
+
+    public void setPayees(Collection<Payee> payees) {
+        this.payees = payees;
+    }
+
+
+
+    /*public Boolean getIs_category_active() {
         return is_category_active;
     }
 
     public void setIs_category_active(Boolean is_category_active) {
         this.is_category_active = is_category_active;
-    }
+    }*/
 
-    public Payee getPayee() {
+    /*public Payee getPayee() {
         return payee;
     }
 
     public void setPayee(Payee payee) {
         this.payee = payee;
-    }
+    }*/
 
-    public Category(String category_name, Boolean is_category_active, Payee payee) {
+    public Category(String category_name/*, Boolean is_category_active*//*, Payee payee*/) {
         this.category_name = category_name;
-        this.is_category_active = is_category_active;
-        this.payee = payee;
+        /*this.is_category_active = is_category_active;*/
+       /* this.payee = payee;*/
     }
 
     public Category(){}
