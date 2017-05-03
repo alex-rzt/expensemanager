@@ -6,13 +6,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_Id;
+    private Integer user_Id;
 
 
     private String user_Name;
@@ -49,6 +51,17 @@ public class User
     public void setAccount(Collection<Account> account) {
         this.account = account;
     }
+    /*@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_account", joinColumns = @JoinColumn(name = "user_Id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
+    private Collection<Account> accounts = new ArrayList<>();
+
+    public Collection<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Collection<Account> accounts) {
+        this.accounts = accounts;
+    }*/
 
     public int getUser_Id() {
         return user_Id;

@@ -48,6 +48,22 @@ public class UserDao
             List <User> users=(List<User>)criteria.list();
             return  users;
     }
+    public List<User> getByNameAndPassword(String name,String password)
+    {
+        Criteria criteria=getSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("user_Name",name))
+                .add(Restrictions.eq("password",password));
+        List <User> users=(List<User>)criteria.list();
+        return  users;
+    }
+    public List<User> getByName(String name)
+    {
+        Criteria criteria=getSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("user_Name",name));
+        List <User> users=(List<User>)criteria.list();
+        return  users;
+    }
+
    /* public List<User> getByName(String name)
     {
 
