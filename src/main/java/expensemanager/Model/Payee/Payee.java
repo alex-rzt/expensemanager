@@ -2,7 +2,6 @@ package expensemanager.Model.Payee;
 
 import expensemanager.Model.Category.Category;
 import expensemanager.Model.Transaction.Transaction;
-import expensemanager.Model.User.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,43 +13,38 @@ public class Payee
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int payee_id;
+    @Column(name = "payee_id")
+    private int payeeId;
 
     @NotNull
-    private String payee_name;
+    @Column(name = "payee_name")
+    private String payeeName;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID")
+    @JoinColumn(name = "category")
     private Category category;
 
     @OneToMany(mappedBy = "payee",cascade = CascadeType.ALL)
     private Collection<Transaction> transactions=new ArrayList<Transaction>();
 
-    public Collection<Transaction> getTransactions() {
-        return transactions;
+    @Column(name = "is_payee_active")
+    private Boolean isPayeeActive;
+
+    public int getPayeeId() {
+        return payeeId;
     }
 
-    public void setTransactions(Collection<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-    /*@NotNull
-    private boolean is_payee_active;*/
-
-    public int getPayee_id() {
-        return payee_id;
+    public void setPayeeId(int payeeId) {
+        this.payeeId = payeeId;
     }
 
-    public void setPayee_id(int payee_id) {
-        this.payee_id = payee_id;
+    public String getPayeeName() {
+        return payeeName;
     }
 
-    public String getPayee_name() {
-        return payee_name;
-    }
-
-    public void setPayee_name(String payee_name) {
-        this.payee_name = payee_name;
+    public void setPayeeName(String payeeName) {
+        this.payeeName = payeeName;
     }
 
     public Category getCategory() {
@@ -62,18 +56,26 @@ public class Payee
         this.category = category;
     }
 
-    /* public boolean isIs_payee_active() {
-            return is_payee_active;
-        }
+    public Collection<Transaction> getTransactions() {
+        return transactions;
+    }
 
-        public void setIs_payee_active(boolean is_payee_active) {
-            this.is_payee_active = is_payee_active;
-        }*/
+    public void setTransactions(Collection<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
+    public Boolean getPayeeActive() {
+        return isPayeeActive;
+    }
 
-    public Payee(String payee_name/*, boolean is_payee_active*/) {
-        this.payee_name = payee_name;
-        /*this.is_payee_active = is_payee_active;*/
+    public void setPayeeActive(Boolean payeeActive) {
+        isPayeeActive = payeeActive;
+    }
+
+    public Payee(String payeeName,Boolean isPayeeActive)
+    {
+        this.payeeName = payeeName;
+        this.isPayeeActive=isPayeeActive;
     }
 
     public Payee(){}

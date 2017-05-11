@@ -3,81 +3,50 @@ package expensemanager.Model.User;
 import expensemanager.Model.Account.Account;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+
 
 @Entity
 public class User
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer user_Id;
+    @Column(name = "user_id")
+    private Integer userId;
 
+    @Column(name = "user_name")
+    private String userName;
 
-    private String user_Name;
-
-
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
+    private long password;
 
-    private String password;
-
-
+    @Column(name = "balance")
     private long balance;
 
-    /*@NotNull
-    private Boolean is_user_active;*/
-
-    /*@ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Collection<Account> account=new ArrayList<Account>();
 
-    public Collection<Account> getAccount() {
-        return account;
+    @Column(name = "is_user_active")
+    private boolean isUserActive;
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAccount(Collection<Account> account) {
-        this.account = account;
-    }*/
-     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<Account> account=new ArrayList<Account>();
-
-    public Collection<Account> getAccount() {
-        return account;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setAccount(Collection<Account> account) {
-        this.account = account;
-    }
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_account", joinColumns = @JoinColumn(name = "user_Id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
-    private Collection<Account> accounts = new ArrayList<>();
-
-    public Collection<Account> getAccounts() {
-        return accounts;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setAccounts(Collection<Account> accounts) {
-        this.accounts = accounts;
-    }*/
-
-    public int getUser_Id() {
-        return user_Id;
-    }
-
-
-    public void setUser_Id(int user_Id) {
-        this.user_Id = user_Id;
-    }
-
-    public String getUser_Name() {
-        return user_Name;
-    }
-
-    public void setUser_Name(String user_Name) {
-        this.user_Name = user_Name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -88,11 +57,11 @@ public class User
         this.email = email;
     }
 
-    public String getPassword() {
+    public long getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(long password) {
         this.password = password;
     }
 
@@ -104,22 +73,36 @@ public class User
         this.balance = balance;
     }
 
-   /* public Boolean getIs_user_active() {
-        return is_user_active;
+    public Collection<Account> getAccount() {
+        return account;
     }
 
-    public void setIs_user_active(Boolean is_user_active) {
-        this.is_user_active = is_user_active;
-    }*/
+    public void setAccount(Collection<Account> account) {
+        this.account = account;
+    }
 
-    public User(String user_Name, String email, String password, long balance/*, Boolean is_user_active*//*, Account account*/) {
-        this.user_Name = user_Name;
+    public boolean getIsUserActive()
+    {
+        return isUserActive;
+    }
+
+    public void setIsUserActive(boolean isUserActive)
+    {
+        this.isUserActive = isUserActive;
+    }
+
+    public User(String userName, String email, long password, long balance,boolean isUserActive)
+    {
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.balance = balance;
-        /*this.is_user_active = is_user_active;*/
-        /*this.account = account;*/
+        this.isUserActive = isUserActive;
     }
 
+    public User(int id)
+    {
+        this.userId=id;
+    }
     public User(){}
 }

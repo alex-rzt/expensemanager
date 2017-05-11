@@ -1,8 +1,6 @@
 package expensemanager.Model.Transaction;
 
 import expensemanager.Model.Account.Account;
-import expensemanager.Model.Category.Category;
-import expensemanager.Model.User.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,14 +41,14 @@ import java.util.List;
         public List<Transaction> getByUserId(int id)
         {
             Criteria criteria=getSession().createCriteria(Transaction.class);
-            criteria.add(Restrictions.eq("user_id",id));
+            criteria.add(Restrictions.eq("userId",id));
             List <Transaction> transactions=(List<Transaction>)criteria.list();
             return  transactions;
         }
         public List<Transaction> getByAccountId(int id)
         {
             Account account=new Account();
-            account.setAccount_id(id);
+            account.setAccountId(id);
             Criteria criteria=getSession().createCriteria(Transaction.class);
             criteria.add(Restrictions.eq("account",account));
             List <Transaction> transactions=(List<Transaction>)criteria.list();

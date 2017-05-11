@@ -1,6 +1,5 @@
 package expensemanager.Model.User;
 
-import expensemanager.Model.Account.Account;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -44,42 +42,27 @@ public class UserDao
     public List<User> getById(int id)
     {
             Criteria criteria=getSession().createCriteria(User.class);
-            criteria.add(Restrictions.eq("user_Id",id));
+            criteria.add(Restrictions.eq("userId",id))
+                    .add(Restrictions.eq("isUserActive",true));
             List <User> users=(List<User>)criteria.list();
             return  users;
     }
-    public List<User> getByNameAndPassword(String name,String password)
+    public List<User> getByNameAndPassword(String name,long password)
     {
         Criteria criteria=getSession().createCriteria(User.class);
-        criteria.add(Restrictions.eq("user_Name",name))
-                .add(Restrictions.eq("password",password));
+        criteria.add(Restrictions.eq("userName",name))
+                .add(Restrictions.eq("password",password))
+                .add(Restrictions.eq("isUserActive",true));
         List <User> users=(List<User>)criteria.list();
         return  users;
     }
+
     public List<User> getByName(String name)
     {
         Criteria criteria=getSession().createCriteria(User.class);
-        criteria.add(Restrictions.eq("user_Name",name));
+        criteria.add(Restrictions.eq("userName",name))
+                .add(Restrictions.eq("isUserActive",true));
         List <User> users=(List<User>)criteria.list();
         return  users;
     }
-
-   /* public List<User> getByName(String name)
-    {
-
-        Criteria criteria=getSession().createCriteria(User.class);
-        criteria.add(Restrictions.eq("user_Name",name));
-        List <User> users=(List<User>)criteria.list();
-        if (users.size()>0)
-        {
-            return  users;
-        }
-        else
-            return null;
-    }*/
-
-
-
-
-
 }
